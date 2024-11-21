@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.wolfeindustries.ldapgetuniqueobjects;
+package ldaputils;
 
 import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldif.LDIFException;
@@ -22,11 +22,13 @@ public class LdapGetUniqueObjectclassSets {
 
     public static void main(String[] args) {
         String pathToLDIFFile = args[0];
+        System.out.printf("Input Args: %s",Arrays.asList(args));
         LDIFReader ldifReader = null;
         HashMap<List,String> uniqueObjectTypes = new HashMap<>();
         try {
             ldifReader = new LDIFReader(pathToLDIFFile);
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.printf("ERROR: Unable to read LDIF file");
         }
 
@@ -73,6 +75,7 @@ public class LdapGetUniqueObjectclassSets {
         try {
             ldifReader.close();
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.printf("ERROR: Unable to close file");
         }
         for (Map.Entry e : uniqueObjectTypes.entrySet()){
